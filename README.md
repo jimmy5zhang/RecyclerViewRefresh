@@ -83,3 +83,62 @@
        }
    });
 ```
+
+### 3.点击item实现
+
+#### (1).编写单击事件接口
+
+```
+   public interface RecyclerItemClickListener {
+   
+       /**
+        * 监听点击item事件
+        * @param view
+        * @param position
+        */
+       public void onItemClick(View view, int position);
+   }
+   
+```
+
+#### (2).在RecyclerView.Adapter里面添加监听
+
+```
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+   
+           TextView contactNameTv,phoneNumberTv;
+   
+           public ViewHolder(View itemView) {
+               super(itemView);
+               contactNameTv = (TextView) itemView.findViewById(R.id.hteng_contact_name_tv);
+               phoneNumberTv = (TextView)itemView.findViewById(R.id.hteng_phone_number_tv);
+               itemView.setOnClickListener(this);
+           }
+   
+           @Override
+           public void onClick(View view) {
+               if(null != itemClickListener){
+                   itemClickListener.onItemClick(view,getAdapterPosition());
+               }
+           }
+   
+       }
+   
+   
+       public void setOnItemClickListener(RecyclerItemClickListener itemClickListener) {
+           this.itemClickListener = itemClickListener;
+       }
+   
+```
+
+#### (3).实现点击item事件
+
+```
+   contactAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
+       @Override
+       public void onItemClick(View view, int position) {
+          
+       }
+   });
+   
+```
